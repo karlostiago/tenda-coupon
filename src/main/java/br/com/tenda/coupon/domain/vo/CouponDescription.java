@@ -9,9 +9,17 @@ public class CouponDescription {
     private final String value;
 
     public CouponDescription(String value) {
+        this.value = value;
+    }
+
+    public static CouponDescription from(String value) {
         if (value == null || value.isBlank()) {
             throw new InvalidCouponException("Description is required");
         }
-        this.value = value;
+        return new CouponDescription(value);
+    }
+
+    public static CouponDescription reconstruct(String value) {
+        return new CouponDescription(value);
     }
 }

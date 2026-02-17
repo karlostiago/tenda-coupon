@@ -88,7 +88,7 @@ class CouponDiscountTest {
         @Test
         @DisplayName("Deve lançar exceção para valor nulo")
         void shouldThrowExceptionForNullValue() {
-            assertThatThrownBy(() -> new CouponDiscount(null))
+            assertThatThrownBy(() -> CouponDiscount.from(null))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Discount value is required");
         }
@@ -96,7 +96,7 @@ class CouponDiscountTest {
         @Test
         @DisplayName("Deve lançar exceção para valor menor que 0.5")
         void shouldThrowExceptionForValueLessThanMinimum() {
-            assertThatThrownBy(() -> new CouponDiscount(new BigDecimal("0.49")))
+            assertThatThrownBy(() -> CouponDiscount.from(new BigDecimal("0.49")))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Discount value must be at least 0.5");
         }
@@ -104,7 +104,7 @@ class CouponDiscountTest {
         @Test
         @DisplayName("Deve lançar exceção para valor zero")
         void shouldThrowExceptionForZeroValue() {
-            assertThatThrownBy(() -> new CouponDiscount(BigDecimal.ZERO))
+            assertThatThrownBy(() -> CouponDiscount.from(BigDecimal.ZERO))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Discount value must be at least 0.5");
         }
@@ -112,7 +112,7 @@ class CouponDiscountTest {
         @Test
         @DisplayName("Deve lançar exceção para valor negativo")
         void shouldThrowExceptionForNegativeValue() {
-            assertThatThrownBy(() -> new CouponDiscount(new BigDecimal("-10.50")))
+            assertThatThrownBy(() -> CouponDiscount.from(new BigDecimal("-10.50")))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Discount value must be at least 0.5");
         }
@@ -120,7 +120,7 @@ class CouponDiscountTest {
         @Test
         @DisplayName("Deve lançar exceção para valor muito pequeno")
         void shouldThrowExceptionForVerySmallValue() {
-            assertThatThrownBy(() -> new CouponDiscount(new BigDecimal("0.001")))
+            assertThatThrownBy(() -> CouponDiscount.from(new BigDecimal("0.001")))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Discount value must be at least 0.5");
         }
@@ -128,7 +128,7 @@ class CouponDiscountTest {
         @Test
         @DisplayName("Deve lançar exceção para valor ligeiramente abaixo do mínimo")
         void shouldThrowExceptionForValueJustBelowMinimum() {
-            assertThatThrownBy(() -> new CouponDiscount(new BigDecimal("0.4999")))
+            assertThatThrownBy(() -> CouponDiscount.from(new BigDecimal("0.4999")))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Discount value must be at least 0.5");
         }

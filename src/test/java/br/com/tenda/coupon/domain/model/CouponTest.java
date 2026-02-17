@@ -2,6 +2,7 @@ package br.com.tenda.coupon.domain.model;
 
 import br.com.tenda.coupon.domain.exception.CouponAlreadyDeletedException;
 import br.com.tenda.coupon.domain.exception.CouponStatusException;
+import br.com.tenda.coupon.domain.exception.ExpirationDateException;
 import br.com.tenda.coupon.domain.exception.InvalidCouponException;
 import br.com.tenda.coupon.domain.vo.CouponStatus;
 import org.junit.jupiter.api.DisplayName;
@@ -196,7 +197,7 @@ class CouponTest {
                     false,
                     false
             ))
-                    .isInstanceOf(InvalidCouponException.class)
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date is required");
         }
 
@@ -213,7 +214,7 @@ class CouponTest {
                     false,
                     false
             ))
-                    .isInstanceOf(InvalidCouponException.class)
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date cannot be in the past");
         }
     }

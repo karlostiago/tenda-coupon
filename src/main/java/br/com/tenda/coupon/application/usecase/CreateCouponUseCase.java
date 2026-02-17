@@ -17,13 +17,13 @@ public class CreateCouponUseCase {
     private final CouponRepository couponRepository;
 
     @Transactional
-    public Coupon execute(String code, String description, BigDecimal discountValue, LocalDateTime expirationDate, boolean published) {
+    public Coupon execute(String code, String description, BigDecimal discountValue, LocalDateTime expirationDate, boolean published, boolean redeemed) {
 
         if (couponRepository.existsByCode(code.replaceAll("[^a-zA-Z0-9]", "").toUpperCase())) {
             throw new InvalidCouponException("A coupon with this code already exists");
         }
 
-        Coupon coupon = Coupon.create(code, description, discountValue, expirationDate, published, false);
+        Coupon coupon = Coupon.create(code, description, discountValue, expirationDate, published, redeemed);
         return couponRepository.save(coupon);
     }
 }

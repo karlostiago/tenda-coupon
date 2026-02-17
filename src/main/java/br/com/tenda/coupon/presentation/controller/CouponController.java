@@ -37,7 +37,8 @@ public class CouponController implements CouponApi {
                 request.getDescription(),
                 request.getDiscountValue(),
                 request.getExpirationDate(),
-                request.isPublished()
+                request.isPublished(),
+                request.isRedeemed()
         );
 
         return ResponseEntity

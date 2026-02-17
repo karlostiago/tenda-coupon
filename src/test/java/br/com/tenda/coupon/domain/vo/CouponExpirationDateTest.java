@@ -1,5 +1,6 @@
 package br.com.tenda.coupon.domain.vo;
 
+import br.com.tenda.coupon.domain.exception.ExpirationDateException;
 import br.com.tenda.coupon.domain.exception.InvalidCouponException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -87,8 +88,8 @@ class CouponExpirationDateTest {
         @Test
         @DisplayName("Deve lançar exceção para data nula")
         void shouldThrowExceptionForNullDate() {
-            assertThatThrownBy(() -> new CouponExpirationDate(null))
-                    .isInstanceOf(InvalidCouponException.class)
+            assertThatThrownBy(() -> CouponExpirationDate.from(null))
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date is required");
         }
 
@@ -97,8 +98,8 @@ class CouponExpirationDateTest {
         void shouldThrowExceptionForPastDate() {
             LocalDateTime pastDate = LocalDateTime.now().minusDays(1);
 
-            assertThatThrownBy(() -> new CouponExpirationDate(pastDate))
-                    .isInstanceOf(InvalidCouponException.class)
+            assertThatThrownBy(() -> CouponExpirationDate.from(pastDate))
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date cannot be in the past");
         }
 
@@ -107,8 +108,8 @@ class CouponExpirationDateTest {
         void shouldThrowExceptionForVeryOldDate() {
             LocalDateTime pastDate = LocalDateTime.now().minusYears(10);
 
-            assertThatThrownBy(() -> new CouponExpirationDate(pastDate))
-                    .isInstanceOf(InvalidCouponException.class)
+            assertThatThrownBy(() -> CouponExpirationDate.from(pastDate))
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date cannot be in the past");
         }
 
@@ -117,8 +118,8 @@ class CouponExpirationDateTest {
         void shouldThrowExceptionForHoursAgo() {
             LocalDateTime pastDate = LocalDateTime.now().minusHours(5);
 
-            assertThatThrownBy(() -> new CouponExpirationDate(pastDate))
-                    .isInstanceOf(InvalidCouponException.class)
+            assertThatThrownBy(() -> CouponExpirationDate.from(pastDate))
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date cannot be in the past");
         }
 
@@ -127,8 +128,8 @@ class CouponExpirationDateTest {
         void shouldThrowExceptionForMinutesAgo() {
             LocalDateTime pastDate = LocalDateTime.now().minusMinutes(30);
 
-            assertThatThrownBy(() -> new CouponExpirationDate(pastDate))
-                    .isInstanceOf(InvalidCouponException.class)
+            assertThatThrownBy(() -> CouponExpirationDate.from(pastDate))
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date cannot be in the past");
         }
 
@@ -137,8 +138,8 @@ class CouponExpirationDateTest {
         void shouldThrowExceptionForSecondsAgo() {
             LocalDateTime pastDate = LocalDateTime.now().minusSeconds(10);
 
-            assertThatThrownBy(() -> new CouponExpirationDate(pastDate))
-                    .isInstanceOf(InvalidCouponException.class)
+            assertThatThrownBy(() -> CouponExpirationDate.from(pastDate))
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date cannot be in the past");
         }
 
@@ -147,8 +148,8 @@ class CouponExpirationDateTest {
         void shouldThrowExceptionForSpecificPastDate() {
             LocalDateTime pastDate = LocalDateTime.of(2020, 1, 1, 0, 0, 0);
 
-            assertThatThrownBy(() -> new CouponExpirationDate(pastDate))
-                    .isInstanceOf(InvalidCouponException.class)
+            assertThatThrownBy(() -> CouponExpirationDate.from(pastDate))
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date cannot be in the past");
         }
     }

@@ -6,9 +6,12 @@ spring:
     name: coupon
 
   jackson:
+    timezone: America/Sao_Paulo
     serialization:
       write-dates-as-timestamps: false
     date-format: yyyy-MM-dd'T'HH:mm:ss
+    deserialization:
+      fail-on-unknown-properties: true
 
   datasource:
     url: jdbc:h2:mem:coupondb

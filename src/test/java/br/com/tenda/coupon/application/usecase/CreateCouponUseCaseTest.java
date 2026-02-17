@@ -1,5 +1,6 @@
 package br.com.tenda.coupon.application.usecase;
 
+import br.com.tenda.coupon.domain.exception.ExpirationDateException;
 import br.com.tenda.coupon.domain.exception.InvalidCouponException;
 import br.com.tenda.coupon.domain.model.Coupon;
 import br.com.tenda.coupon.domain.repository.CouponRepository;
@@ -20,10 +21,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-/**
- * Testes unitários para CreateCouponUseCase.
- * Foca em testar o comportamento do caso de uso com mocks.
- */
 @ExtendWith(MockitoExtension.class)
 @DisplayName("CreateCouponUseCase")
 class CreateCouponUseCaseTest {
@@ -56,6 +53,7 @@ class CreateCouponUseCaseTest {
                     "Desconto de verão",
                     new BigDecimal("10.50"),
                     futureDate,
+                    false,
                     false
             );
 
@@ -79,6 +77,7 @@ class CreateCouponUseCaseTest {
                     "Desconto",
                     new BigDecimal("10.50"),
                     futureDate,
+                    false,
                     false
             );
 
@@ -97,7 +96,8 @@ class CreateCouponUseCaseTest {
                     "Desconto",
                     new BigDecimal("10.50"),
                     futureDate,
-                    true
+                    true,
+                    false
             );
 
             assertThat(result.isPublished()).isTrue();
@@ -118,6 +118,7 @@ class CreateCouponUseCaseTest {
                     "Desconto",
                     new BigDecimal("10.50"),
                     futureDate,
+                    false,
                     false
             ))
                     .isInstanceOf(InvalidCouponException.class)
@@ -137,6 +138,7 @@ class CreateCouponUseCaseTest {
                     "Desconto",
                     new BigDecimal("10.50"),
                     futureDate,
+                    false,
                     false
             ))
                     .isInstanceOf(InvalidCouponException.class)
@@ -161,6 +163,7 @@ class CreateCouponUseCaseTest {
                     "Desconto",
                     new BigDecimal("0.4"),
                     futureDate,
+                    false,
                     false
             ))
                     .isInstanceOf(InvalidCouponException.class)
@@ -180,9 +183,10 @@ class CreateCouponUseCaseTest {
                     "Desconto",
                     new BigDecimal("10.50"),
                     pastDate,
+                    false,
                     false
             ))
-                    .isInstanceOf(InvalidCouponException.class)
+                    .isInstanceOf(ExpirationDateException.class)
                     .hasMessage("Expiration date cannot be in the past");
 
             verify(couponRepository, never()).save(any(Coupon.class));

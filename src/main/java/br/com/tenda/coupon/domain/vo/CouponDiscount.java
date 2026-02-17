@@ -11,6 +11,10 @@ public class CouponDiscount {
     private final BigDecimal value;
 
     public CouponDiscount(BigDecimal value) {
+        this.value = value;
+    }
+
+    public static CouponDiscount from(BigDecimal value) {
         if (value == null) {
             throw new InvalidCouponException("Discount value is required");
         }
@@ -18,6 +22,10 @@ public class CouponDiscount {
         if (value.compareTo(new BigDecimal("0.5")) < 0) {
             throw new InvalidCouponException("Discount value must be at least 0.5");
         }
-        this.value = value;
+        return new CouponDiscount(value);
+    }
+
+    public static CouponDiscount reconstruct(BigDecimal value) {
+        return new CouponDiscount(value);
     }
 }

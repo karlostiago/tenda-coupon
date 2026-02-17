@@ -72,7 +72,7 @@ class CouponDescriptionTest {
         @Test
         @DisplayName("Deve lançar exceção para descrição nula")
         void shouldThrowExceptionForNullDescription() {
-            assertThatThrownBy(() -> new CouponDescription(null))
+            assertThatThrownBy(() -> CouponDescription.from(null))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Description is required");
         }
@@ -80,7 +80,7 @@ class CouponDescriptionTest {
         @Test
         @DisplayName("Deve lançar exceção para descrição vazia")
         void shouldThrowExceptionForEmptyDescription() {
-            assertThatThrownBy(() -> new CouponDescription(""))
+            assertThatThrownBy(() -> CouponDescription.from(""))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Description is required");
         }
@@ -88,7 +88,7 @@ class CouponDescriptionTest {
         @Test
         @DisplayName("Deve lançar exceção para descrição com apenas espaços")
         void shouldThrowExceptionForBlankDescription() {
-            assertThatThrownBy(() -> new CouponDescription("   "))
+            assertThatThrownBy(() -> CouponDescription.from("   "))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Description is required");
         }
@@ -96,7 +96,7 @@ class CouponDescriptionTest {
         @Test
         @DisplayName("Deve lançar exceção para descrição com apenas tabs")
         void shouldThrowExceptionForTabsOnly() {
-            assertThatThrownBy(() -> new CouponDescription("\t\t\t"))
+            assertThatThrownBy(() -> CouponDescription.from("\t\t\t"))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Description is required");
         }
@@ -104,7 +104,7 @@ class CouponDescriptionTest {
         @Test
         @DisplayName("Deve lançar exceção para descrição com espaços e quebras de linha")
         void shouldThrowExceptionForWhitespaceOnly() {
-            assertThatThrownBy(() -> new CouponDescription("  \n  \t  "))
+            assertThatThrownBy(() -> CouponDescription.from("  \n  \t  "))
                     .isInstanceOf(InvalidCouponException.class)
                     .hasMessage("Description is required");
         }

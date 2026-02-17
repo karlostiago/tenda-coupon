@@ -20,23 +20,23 @@ public class Coupon {
     private final boolean redeemed;
     private String status;
 
-    private Coupon(UUID id, CouponCode code, String description, BigDecimal discount, LocalDateTime expirationDate, boolean published, boolean redeemed, CouponStatus status) {
+    private Coupon(UUID id, CouponCode code, CouponDescription description, CouponDiscount discount, CouponExpirationDate expirationDate, boolean published, boolean redeemed, CouponStatus status) {
         this.id = id;
         this.code = code;
-        this.description = new CouponDescription(description);
-        this.discount = new CouponDiscount(discount);
-        this.expirationDate = new CouponExpirationDate(expirationDate);
+        this.description = description;
+        this.discount = discount;
+        this.expirationDate = expirationDate;
         this.published = published;
         this.redeemed = redeemed;
         this.status = status.name();
     }
 
     public static Coupon create(String code, String description, BigDecimal discountValue, LocalDateTime expirationDate, boolean published, boolean redeemed) {
-        return new Coupon(UUID.randomUUID(), CouponCode.from(code), description, discountValue, expirationDate, published, redeemed, CouponStatus.ACTIVE);
+        return new Coupon(UUID.randomUUID(), CouponCode.from(code), CouponDescription.from(description), CouponDiscount.from(discountValue), CouponExpirationDate.from(expirationDate), published, redeemed, CouponStatus.ACTIVE);
     }
 
     public static Coupon reconstruct(UUID id, String code, String description, BigDecimal discountValue, LocalDateTime expirationDate, boolean published, boolean redeemed, CouponStatus status) {
-        return new Coupon(id, CouponCode.reconstruct(code), description, discountValue, expirationDate, published, redeemed, status);
+        return new Coupon(id, CouponCode.reconstruct(code), CouponDescription.reconstruct(description), CouponDiscount.reconstruct(discountValue), CouponExpirationDate.reconstruct(expirationDate), published, redeemed, status);
     }
 
     public void delete() {
