@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: tenda-coupon-api:latest
     container_name: tenda-coupon-api
     ports:
       - "9090:9090"
