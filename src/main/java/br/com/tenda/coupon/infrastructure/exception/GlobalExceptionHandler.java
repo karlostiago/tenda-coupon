@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UnrecognizedPropertyException.class)
     public ResponseEntity<ErrorResponse> handleUnrecognizedPropertyException(UnrecognizedPropertyException ex, HttpServletRequest request) {
         String fieldName = ex.getPropertyName();
-        String message = String.format("Atributo '%s' não reconhecido ou não permitido na requisição", fieldName);
+        String message = String.format("The attribute '%s' is not recognized or allowed in the request", fieldName);
 
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
