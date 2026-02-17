@@ -10,7 +10,7 @@
 Um projeto showcase que demonstra a aplicação rigorosa de princípios de arquitetura limpa, separação de responsabilidades e desenvolvimento orientado a testes (TDD) em um contexto real de negócio.
 
 ```
-🏗️  Clean Architecture      📚  Domain-Driven Design    🧪  90%+ Test Coverage
+🏗️  Clean Architecture      📚  Domain-Driven Design    🧪  146 Testes Automatizados
 🎯  4 Use Cases             💎  5 Value Objects         🐳  Docker Ready
 🔄  Soft Delete             📖  OpenAPI/Swagger         ⚡  Spring Boot 3.5
 ```
@@ -96,7 +96,8 @@ src/
 │       │   │   ├── InvalidCouponException.java
 │       │   │   ├── CouponAlreadyDeletedException.java
 │       │   │   ├── CouponNotFoundException.java
-│       │   │   └── CouponStatusException.java
+│       │   │   ├── CouponStatusException.java
+│       │   │   └── ExpirationDateException.java
 │       │   ├── repository/              # Port (interface)
 │       │   │   └── CouponRepository.java
 │       │   └── vo/                      # Value Objects
@@ -195,21 +196,21 @@ O sistema trabalha com 3 estados:
 ## 📊 Estatísticas do Projeto
 
 ```
-📁 Arquivos Java:           39 classes
-📝 Linhas de Código:        3.083 linhas
-   ├─ Código Principal:     783 linhas
-   └─ Código de Testes:     2.300 linhas
+📁 Arquivos Java:           40 classes
+📝 Linhas de Código:        3.144 linhas
+   ├─ Código Principal:     838 linhas
+   └─ Código de Testes:     2.306 linhas
    
-📊 Proporção:              2.94:1 (teste/código)
+📊 Proporção:              2.75:1 (teste/código)
 🎯 Cobertura:              >90%
-🧪 Casos de Teste:         45+ cenários
+🧪 Casos de Teste:         146 testes automatizados
 ```
 
 **Distribuição por Camada:**
-- **Domain**: 5 VOs + 1 Entidade + 4 Exceções + 1 Enum + 1 Interface
+- **Domain**: 5 VOs + 1 Entidade + 5 Exceções + 1 Interface (CouponRepository)
 - **Application**: 4 Use Cases
 - **Presentation**: 2 Controllers + 3 DTOs + 1 Mapper
-- **Infrastructure**: 3 Adapters + 1 Entity + 2 Configs + 1 Exception Handler
+- **Infrastructure**: 2 Adapters + 1 Entity + 1 Config + 1 Exception Handler
 
 ## 🏗️ Arquitetura
 
@@ -667,6 +668,7 @@ O sistema possui um `GlobalExceptionHandler` que converte exceções de domínio
 | `CouponNotFoundException` | 404 Not Found | Cupom não encontrado |
 | `CouponAlreadyDeletedException` | 409 Conflict | Tentativa de deletar cupom já deletado |
 | `CouponStatusException` | 400 Bad Request | Status inválido |
+| `ExpirationDateException` | 400 Bad Request | Data de expiração inválida |
 
 **Formato de resposta de erro:**
 ```json
